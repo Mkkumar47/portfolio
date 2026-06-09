@@ -1,0 +1,251 @@
+{
+  "name": {
+    "first": "Manikanta Kumar",
+    "last": "Redrouthu",
+    "full": "Manikanta Kumar Redrouthu",
+    "nickname": "Manikanta"
+  },
+  "email": "manikanta.redrouthu47@gmail.com",
+  "phone": "+91 7893885491",
+  "tagline": "Advanced Lead Full Stack Developer | JavaScript, Angular, .NET Core, Node.js. Building scalable, client-focused applications that deliver real business value.",
+  "description": "Advanced Lead Full Stack Developer focused on scalable, client-centric enterprise applications, cloud integrations, and high-quality delivery.",
+  "roles": {
+    "short": "Advanced Lead Full Stack Developer",
+    "detailed": "Angular Architect · Full Stack Engineer · Cloud Integrations"
+  },
+  "location": {
+    "based": "Tenali, Andhra Pradesh, India",
+    "availability": "Open to remote opportunities"
+  },
+  "available": true,
+  "bio": "Senior Software Engineer with 8+ years of experience in Angular-based front-end development and enterprise web application design. I specialize in building scalable single-page applications using Angular 18+, TypeScript, Redux/Ngrx patterns, .NET MVC, and modern UI technologies. I have hands-on experience integrating applications with Microsoft Azure cloud services and implementing CI/CD pipelines to enable secure, high-quality deployments.",
+  "stats": [
+    { "value": "8+", "label": "Years Experience" },
+    { "value": "2", "label": "Enterprise Companies" },
+    { "value": "40%", "label": "Workflow Efficiency Gain" }
+  ],
+  "skills": [
+    "JavaScript",
+    "Angular",
+    "TypeScript",
+    ".NET Core",
+    "Node.js",
+    "Redux/Ngrx",
+    "Azure",
+    "CI/CD",
+    "Salesforce Canvas",
+    "Micro Frontends",
+    "Enterprise UI Architecture",
+    "Code Quality & Testing",
+    "Anthropic Claude"
+  ],
+  "experience": [
+    {
+      "id": 1,
+      "role": "Senior Software Engineer",
+      "company": "EPAM Systems",
+      "companyShort": "EPAM",
+      "type": "Full-time",
+      "location": "Hyderabad, India",
+      "period": "Apr 2022",
+      "periodEnd": "Present",
+      "bullets": [
+        "Led a team of 3 developers through full lifecycle development and deployment of a high-impact Angular platform for Credit Bureau agents.",
+        "Delivered a measurable 40% improvement in business workflow efficiency.",
+        "Integrated Salesforce and Angular apps via a custom Canvas component using a micro front-end approach.",
+        "Integrated HGV ONEX APIs with 4 distinct HGV partners, building advanced search and booking workflows.",
+        "Advanced Equifax CCMS OAD Phase 2 features originally planned for 2025 and enabled on-time completion.",
+        "Improved user engagement by 20% with responsive SPA experiences and robust UI architecture.",
+        "Resolved critical defects and improved system stability and performance by 15%.",
+        "Maintained high engineering quality through PR reviews, linting, unit tests, and manual validation."
+      ],
+      "desc": "Led enterprise Angular delivery, Salesforce Canvas integration, and API-driven platform enhancements at EPAM, driving measurable gains in efficiency, performance, and engagement.",
+      "tech": [
+        "Angular",
+        "TypeScript",
+        "JavaScript",
+        "HTML/CSS",
+        "Salesforce Canvas",
+        "Cypress",
+        "Oracle SQL Developer",
+        "Visual Studio Code"
+      ]
+    },
+    {
+      "id": 2,
+      "role": "Senior Software Engineer",
+      "company": "Accenture in India",
+      "companyShort": "ACCENTURE",
+      "type": "Full-time",
+      "location": "Chennai, Tamil Nadu, India",
+      "period": "Dec 2021",
+      "periodEnd": "Mar 2022",
+      "bullets": [
+        "Led a team of 4 junior associates across Unified Assessment Form (UAF) and 360 ValueMeter initiatives.",
+        "Built core capabilities using Angular 9 and .NET Core 3.1 REST APIs.",
+        "Enhanced UI quality and usability using jQuery, Bootstrap, JavaScript, and CSS3.",
+        "Contributed to requirement analysis, design documentation, and PostgreSQL data modeling.",
+        "Delivered features that reduced client effort significantly in assessment workflows."
+      ],
+      "desc": "Led cross-functional implementation of UAF and 360 ValueMeter at Accenture, combining Angular and .NET services with strong delivery discipline.",
+      "tech": [
+        "Angular 9",
+        ".NET Core 3.1",
+        "REST APIs",
+        "jQuery",
+        "Bootstrap",
+        "JavaScript",
+        "CSS3",
+        "PostgreSQL"
+      ]
+    },
+    {
+      "id": 3,
+      "role": "Analyst",
+      "company": "Accenture in India",
+      "companyShort": "ACCENTURE",
+      "type": "Full-time",
+      "location": "Chennai, Tamil Nadu, India",
+      "period": "May 2020",
+      "periodEnd": "Nov 2021",
+      "bullets": [
+        "Developed RoadMap Assessment using .NET Core, Angular 10, and TypeScript.",
+        "Built business-level IT Revenue, Spend, Summary, and Insight visualizations using D3.js.",
+        "Implemented value-added enhancements and innovative features to improve platform impact."
+      ],
+      "desc": "Delivered RoadMap Assessment features, analytics visualizations, and product improvements using Angular, .NET Core, and D3.js.",
+      "tech": [
+        "Angular 10",
+        "TypeScript",
+        ".NET Core",
+        "D3.js",
+        "JavaScript"
+      ]
+    },
+    {
+      "id": 4,
+      "role": "Associate",
+      "company": "Accenture in India",
+      "companyShort": "ACCENTURE",
+      "type": "Full-time",
+      "location": "Chennai, Tamil Nadu, India",
+      "period": "Aug 2018",
+      "periodEnd": "Apr 2020",
+      "bullets": [
+        "Built PMO Data application modules for staffing, finance, and demand reporting.",
+        "Developed complex business logic and REST APIs using .NET MVC.",
+        "Created KnockoutJS and Redux-based UI workflows and Highcharts visual analytics.",
+        "Implemented data export and interactive reporting experiences for enterprise users."
+      ],
+      "desc": "Built enterprise reporting capabilities in PMO Data using .NET MVC, KnockoutJS, Redux patterns, and charting-driven UX.",
+      "tech": [
+        ".NET MVC",
+        "KnockoutJS",
+        "Redux",
+        "Highcharts",
+        "JSON",
+        "JavaScript"
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "title": "Equifax CCMS Platform",
+      "subtitle": "Angular + Salesforce Canvas Enterprise Integration",
+      "type": "Enterprise Platform",
+      "link": "https://www.epam.com/",
+      "image": "/assets/project-artgenio.png",
+      "tech": ["Angular", "TypeScript", "Salesforce Canvas", "Micro Frontends", "Cypress"],
+      "desc": "Led delivery of key CCMS capabilities with accelerated milestones, Salesforce integration, and measurable improvements in user engagement and operational performance."
+    },
+    {
+      "id": 2,
+      "title": "360 ValueMeter",
+      "subtitle": "Business Assessment and Analytics Solution",
+      "type": "Enterprise Analytics",
+      "link": "https://www.accenture.com/",
+      "image": "/assets/project-easyfolio.png",
+      "tech": ["Angular", ".NET Core", "PostgreSQL", "D3.js", "JavaScript"],
+      "desc": "Contributed to a strategic organizational analytics asset that helps clients assess and improve business dimensions such as finance, experience, and inclusion metrics."
+    }
+  ],
+  "publications": [
+    {
+      "id": 1,
+      "title": "Cloud Digital Leader Certification",
+      "platform": "Certification",
+      "year": "2026",
+      "link": "https://www.linkedin.com/in/manikanta-kumar-redrouthu-98b51b1a0",
+      "desc": "Certification focused on core cloud concepts, digital transformation strategy, and business value realization for modern cloud adoption."
+    },
+    {
+      "id": 2,
+      "title": "Claude Anthropic Certified Architect",
+      "platform": "Certification",
+      "year": "2026",
+      "link": "https://www.linkedin.com/in/manikanta-kumar-redrouthu-98b51b1a0",
+      "desc": "Professional certification centered on designing enterprise-grade AI systems with Claude, including architecture patterns, safety, and workflow orchestration."
+    },
+    {
+      "id": 3,
+      "title": "AWS Certified AI Practitioner",
+      "platform": "Certification",
+      "year": "2026",
+      "link": "https://www.linkedin.com/in/manikanta-kumar-redrouthu-98b51b1a0",
+      "desc": "Foundational certification covering AI and ML concepts, responsible AI practices, and practical usage of AWS AI services and tools."
+    }
+  ],
+  "socials": [
+    { "label": "GitHub", "href": "https://github.com/" },
+    { "label": "LinkedIn", "href": "https://www.linkedin.com/in/manikanta-kumar-redrouthu-98b51b1a0" },
+    { "label": "Instagram", "href": "https://www.instagram.com/" },
+    { "label": "Medium", "href": "https://medium.com/" }
+  ],
+  "languages": [
+    { "name": "Telugu", "level": "Native or Bilingual" },
+    { "name": "English", "level": "Professional Working" },
+    { "name": "Tamil", "level": "Elementary" },
+    { "name": "Hindi", "level": "Limited Working" }
+  ],
+  "certifications": [
+    "Cloud Computing Basics",
+    "Model Context Protocol: Advanced Topics",
+    "Claude Certified Architect",
+    "Introduction to Cloud Computing",
+    "Certificate of completion: Introduction to Claude Cowork"
+  ],
+  "honors": [
+    "Accenture Excellence Award FY-21",
+    "Tech Star of FY-21",
+    "Microsoft AI certified",
+    "Runner up for EPAM Architectural Kata",
+    "Equifax Customer Success Champion"
+  ],
+  "education": [
+    {
+      "institution": "Indian Institute of Management, Calcutta",
+      "degree": "Executive General Management Program",
+      "field": "Business, Management, Marketing, and Related Support Services",
+      "period": "Jan 2020 - Mar 2022"
+    },
+    {
+      "institution": "GITAM Deemed University, Visakhapatnam",
+      "degree": "Bachelor of Technology (BTech)",
+      "field": "ECE",
+      "period": "2014 - 2018"
+    },
+    {
+      "institution": "Narayana Junior College, Gudavalli",
+      "degree": "AP State Board of Intermediate",
+      "field": "Intermediate",
+      "period": "2012 - 2014"
+    },
+    {
+      "institution": "Montessori E.M School, Tenali",
+      "degree": "Primary School",
+      "field": "General",
+      "period": "2000 - 2012"
+    }
+  ]
+}

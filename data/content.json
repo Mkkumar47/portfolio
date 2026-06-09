@@ -1,0 +1,22 @@
+{
+  "site": {
+    "tagline": "Advanced Lead Full Stack Developer"
+  },
+  "hero": {
+    "taglineHighlight": "applications",
+    "freelanceNote": "Open to remote full-time opportunities and high-impact enterprise projects.",
+    "availableLabel": "Open to opportunities",
+    "pills": ["Angular Architect", "Full Stack Engineer", ".NET Core", "Cloud Integrations"],
+    "specialistStat": { "value": "Angular + .NET", "label": "Enterprise Specialist" }
+  },
+  "interstitial": {
+    "availabilityLabel": "Availability",
+    "basedInLabel": "Based in",
+    "statLabels": ["Years\nexperience", "Enterprise\ncompanies", "Workflow\nefficiency gain"]
+  },
+  "footer": {
+    "eyebrow": "Open to remote collaborations",
+    "ctaLines": ["Building scalable", "enterprise platforms", "with measurable"],
+    "ctaAccent": "impact."
+  }
+}
