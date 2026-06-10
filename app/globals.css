@@ -1,81 +1,227 @@
 @import "tailwindcss";
 
-/* ─── Brand tokens ─────────────────────────────────────── */
+/* ============================================================
+   DESIGN SYSTEM — Minimal monochrome + single accent
+   Single source of truth for all design tokens.
+   ============================================================ */
 :root {
-  /* Hero gradient - exact reference image */
-  --hero-start: #f8d5b0;
-  --hero-mid:   #f5954a;
-  --hero-end:   #e85500;
+  /* ── Ink (monochrome scale) ─────────────────────────────── */
+  --ink-900: #0a0a0b;   /* near-black, headings / dark surfaces */
+  --ink-800: #18181b;
+  --ink-700: #27272a;
+  --ink-600: #3f3f46;
+  --ink-500: #52525b;   /* muted body text on white (AA) */
+  --ink-400: #71717a;   /* secondary / captions */
+  --ink-300: #a1a1aa;
+  --ink-200: #d4d4d8;
+  --ink-150: #e4e4e7;
+  --ink-100: #f4f4f5;
+  --ink-50:  #fafafa;
 
-  /* Accent */
-  --accent:       #f7931e;
-  --accent-hover: #e07b10;
+  /* ── Single accent ──────────────────────────────────────── */
+  --accent:        #2563eb;   /* AA on white for normal text */
+  --accent-hover:  #1d4ed8;
+  --accent-soft:   #eff4ff;   /* tinted surface */
+  --accent-on-dark:#60a5fa;   /* accent against dark sections */
 
-  /* Text */
-  --text-primary: #1a0800;
-  --text-muted:   #4a2800;
-  --text-on-dark: #f5f5f5;
+  /* ── Semantic surfaces / text ───────────────────────────── */
+  --bg:            #ffffff;
+  --bg-subtle:     var(--ink-50);
+  --surface:       #ffffff;
+  --surface-dark:  var(--ink-900);
+  --text:          var(--ink-900);
+  --text-muted:    var(--ink-500);
+  --text-faint:    var(--ink-400);
+  --text-on-dark:  #f4f4f5;
+  --text-on-dark-muted: #a1a1aa;
+  --border:        var(--ink-150);
+  --border-strong: var(--ink-200);
+  --status-available: #16a34a;
 
-  /* Surfaces */
-  --surface-white: #ffffff;
-  --surface-black: #0a0a0a;
-  --surface-amber: #fff7ed;
+  /* ── Typography scale (fluid) ───────────────────────────── */
+  --font-ui: var(--font-poppins), system-ui, -apple-system, "Segoe UI", sans-serif;
 
-  /* Status */
-  --status-available: #22c55e;
+  --fs-display: clamp(2.75rem, 7vw, 5.5rem);
+  --fs-h1:      clamp(2.25rem, 5vw, 3.75rem);
+  --fs-h2:      clamp(1.75rem, 3.5vw, 2.75rem);
+  --fs-h3:      clamp(1.15rem, 1.8vw, 1.45rem);
+  --fs-lead:    clamp(1.05rem, 1.6vw, 1.3rem);
+  --fs-body:    clamp(0.975rem, 1.1vw, 1.0625rem);
+  --fs-small:   0.875rem;
+  --fs-eyebrow: 0.75rem;
 
-  /* Text dark token */
-  --text-dark: #1e1e1e;
+  /* ── Layout ─────────────────────────────────────────────── */
+  --maxw:       1200px;
+  --gutter:     clamp(1.25rem, 5vw, 4rem);
+  --section-y:  clamp(4.5rem, 10vw, 8rem);
+  --nav-h:      72px;
+  --radius:     16px;
+  --radius-sm:  10px;
+  --radius-pill: 9999px;
 
-  /* Navbar */
-  --navbar-text:    #1a0800;
-  --email-btn-bg:   #ffffff;
-  --email-btn-text: #1a0800;
+  /* ── Elevation ──────────────────────────────────────────── */
+  --shadow-sm:  0 1px 2px rgba(10,10,11,0.04), 0 1px 3px rgba(10,10,11,0.06);
+  --shadow-md:  0 4px 12px rgba(10,10,11,0.06), 0 12px 28px rgba(10,10,11,0.08);
+  --shadow-lg:  0 12px 32px rgba(10,10,11,0.10), 0 28px 60px rgba(10,10,11,0.12);
 
-  /* Type scale */
-  --hero-name-size: clamp(4.5rem, 13vw, 12rem);
-  --text-body:  clamp(0.9rem, 1.2vw, 1.05rem);
-  --text-small: 0.72rem;
-  --hero-role-size: clamp(0.75rem, 1.2vw, 0.875rem);
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
-  /* ─── shadcn var bridge (maps to brand tokens) ── */
-  --background:   var(--surface-white);
-  --foreground:   var(--text-primary);
-  --primary:      var(--text-primary);
-  --primary-foreground: var(--surface-white);
-  --ring:         var(--accent);
-  --radius:       9999px;
+  /* ── shadcn/base-ui bridge ──────────────────────────────── */
+  --background: var(--bg);
+  --foreground: var(--text);
+  --primary: var(--ink-900);
+  --primary-foreground: #ffffff;
+  --muted: var(--ink-100);
+  --ring: var(--accent);
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --font-sans: var(--font-poppins);
 }
 
-/* ─── Base ──────────────────────────────────────────────── */
+/* ============================================================
+   BASE / RESET
+   ============================================================ */
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: var(--nav-h);
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+}
+
 html, body {
-  height: 100%;
-  overflow: hidden;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  min-height: 100%;
+  overflow-x: hidden;
 }
 
 body {
-  background: var(--background);
-  color:      var(--foreground);
-  font-family: var(--font-geist-sans), Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-ui);
+  font-size: var(--fs-body);
+  line-height: 1.6;
+  font-weight: 400;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  text-rendering: optimizeLegibility;
 }
 
-/* ─── Hide scrollbar ─────────────────────────────────────── */
-main::-webkit-scrollbar { display: none; }
-main { scrollbar-width: none; -ms-overflow-style: none; }
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-ui);
+  font-weight: 700;
+  line-height: 1.1;
+  letter-spacing: -0.02em;
+  margin: 0;
+  color: var(--text);
+}
 
-@media (max-width: 767px) {
-  :root {
-    --hero-name-size: clamp(3rem, 10vw, 5rem);
+p { margin: 0; }
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img, svg, video { display: block; max-width: 100%; }
+
+button { font-family: inherit; }
+
+/* ── Accessible focus indicators ────────────────────────── */
+:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* ── Skip link ──────────────────────────────────────────── */
+.skip-link {
+  position: absolute;
+  left: 1rem;
+  top: -100px;
+  z-index: 1000;
+  background: var(--ink-900);
+  color: #fff;
+  padding: 0.75rem 1.25rem;
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+  font-size: var(--fs-small);
+  transition: top 0.2s var(--ease);
+}
+.skip-link:focus {
+  top: 1rem;
+}
+
+/* ============================================================
+   LAYOUT PRIMITIVES (shared)
+   ============================================================ */
+.container {
+  width: 100%;
+  max-width: var(--maxw);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  position: relative;
+  padding-block: var(--section-y);
+  scroll-margin-top: var(--nav-h);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: var(--fs-eyebrow);
+  font-weight: 600;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+}
+.eyebrow::before {
+  content: "";
+  width: 1.75rem;
+  height: 1px;
+  background: var(--accent);
+}
+
+/* ============================================================
+   SCROLL-REVEAL ANIMATIONS (progressive enhancement)
+   Markup is server-rendered; JS adds [data-reveal] visibility.
+   ============================================================ */
+[data-reveal] {
+  opacity: 0;
+  transform: translateY(24px);
+  transition:
+    opacity 0.7s var(--ease),
+    transform 0.7s var(--ease);
+  transition-delay: var(--reveal-delay, 0ms);
+  will-change: opacity, transform;
+}
+[data-reveal="in"] {
+  opacity: 1;
+  transform: none;
+}
+
+/* ============================================================
+   REDUCED MOTION — disable all motion-based effects
+   ============================================================ */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
   }
-
-  /* Override inline 100vh - Chrome mobile toolbar hides bottom content */
-  html, body { height: 100svh !important; }
-  main { height: 100svh !important; }
+  [data-reveal] {
+    opacity: 1 !important;
+    transform: none !important;
+  }
 }

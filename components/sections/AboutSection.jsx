@@ -1,154 +1,89 @@
-'use client'
-
-import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { gsap } from '@/lib/gsap'
-import { FaGithub, FaLinkedinIn, FaMedium, FaInstagram, FaYoutube } from 'react-icons/fa'
+import { FaGithub, FaLinkedinIn, FaInstagram, FaMedium } from 'react-icons/fa'
+import Reveal from '@/components/ui/Reveal'
 import profile from '@/data/profile.json'
 import styles from '@/styles/sections/AboutSection.module.css'
 
-const BIO      = profile.bio
-const WHO_ITEMS = profile.skills
-
-const ICON_MAP = { GitHub: FaGithub, LinkedIn: FaLinkedinIn, Medium: FaMedium, Instagram: FaInstagram, YouTube: FaYoutube }
-
-const SOCIALS = profile.socials.map(s => ({ Icon: ICON_MAP[s.label], href: s.href, label: s.label }))
+const ICONS = {
+  GitHub: FaGithub,
+  LinkedIn: FaLinkedinIn,
+  Instagram: FaInstagram,
+  Medium: FaMedium,
+}
 
 export default function AboutSection() {
-  const sectionRef  = useRef(null)
-  const photoRef    = useRef(null)
-  const contentRef  = useRef(null)
-  const socialsRef  = useRef(null)
-  const intervalRef = useRef(null)
-
-  const [typed, setTyped] = useState(0)
-  const [done,  setDone]  = useState(false)
-
-  useEffect(() => {
-    const section = sectionRef.current
-    if (!section) return
-
-    const scroller = document.querySelector('main')
-    if (!scroller) return
-
-    let isActive = false
-
-    function resetAnim() {
-      clearInterval(intervalRef.current)
-      gsap.killTweensOf(photoRef.current)
-      gsap.killTweensOf(contentRef.current)
-      const socialIcons = socialsRef.current?.querySelectorAll('a') ?? []
-      gsap.killTweensOf(socialIcons)
-      gsap.set(photoRef.current,   { opacity: 0, x: -50 })
-      gsap.set(contentRef.current, { opacity: 0, y:  40 })
-      gsap.set(socialIcons, { opacity: 0, y: 20 })
-      setTyped(0)
-      setDone(false)
-    }
-
-    function playAnim() {
-      resetAnim()
-      gsap.to(photoRef.current,   { opacity: 1, x: 0, duration: 0.9, ease: 'power3.out' })
-      gsap.to(contentRef.current, { opacity: 1, y: 0, duration: 0.8, ease: 'power3.out', delay: 0.15 })
-      const socialIcons = socialsRef.current?.querySelectorAll('a') ?? []
-      gsap.to(socialIcons, { opacity: 1, y: 0, duration: 0.5, ease: 'power2.out', stagger: 0.1, delay: 0.5 })
-
-      let i = 0
-      intervalRef.current = setInterval(() => {
-        i = Math.min(i + 6, BIO.length)
-        setTyped(i)
-        if (i >= BIO.length) {
-          clearInterval(intervalRef.current)
-          setDone(true)
-        }
-      }, 16)
-    }
-
-    resetAnim()
-
-    function onScroll() {
-      const inRange = Math.abs(scroller.scrollTop - section.offsetTop) < window.innerHeight * 0.5
-      if (inRange && !isActive)  { isActive = true;  playAnim() }
-      if (!inRange && isActive)  { isActive = false; resetAnim() }
-    }
-
-    scroller.addEventListener('scroll', onScroll, { passive: true })
-    return () => {
-      clearInterval(intervalRef.current)
-      scroller.removeEventListener('scroll', onScroll)
-    }
-  }, [])
-
   return (
-    <section ref={sectionRef} className={styles.section}>
-
-      {/* ── Left: photo + signature + socials ───────── */}
-      <div ref={photoRef} className={styles.photoCol}>
-        <div className={styles.photoWrap}>
-          <div className={styles.photoFrame} data-about-photo>
+    <section id="about" className={`${styles.section} section`} aria-labelledby="about-title">
+      <div className={`${styles.inner} container`}>
+        {/* ── Left: portrait + socials ── */}
+        <Reveal className={styles.media}>
+          <div className={styles.photoFrame}>
             <Image
               src="/assets/about.jpeg"
-              alt="Manikanta Kumar Redrouthu"
+              alt={`${profile.name.full} working`}
               fill
-              quality={100}
-              sizes="(min-width: 768px) 30vw, 100vw"
-              className={styles.photoImg}
+              quality={85}
+              sizes="(min-width: 900px) 34vw, 90vw"
+              className={styles.photo}
             />
           </div>
-          <p className={styles.signature}>{profile.name.first} {profile.name.last}</p>
+          <p className={styles.signature}>{profile.name.full}</p>
+          <ul className={styles.socials} aria-label="Social profiles">
+            {profile.socials.map(({ label, href }) => {
+              const Icon = ICONS[label]
+              if (!Icon) return null
+              return (
+                <li key={label}>
+                  <a href={href} target="_blank" rel="noopener noreferrer" className={styles.socialLink} aria-label={label}>
+                    <Icon aria-hidden="true" />
+                  </a>
+                </li>
+              )
+            })}
+          </ul>
+        </Reveal>
+
+        {/* ── Right: bio + skills ── */}
+        <div className={styles.content}>
+          <Reveal as="p" className="eyebrow">About me</Reveal>
+          <Reveal as="h2" id="about-title" className={styles.title} delay={60}>
+            Engineering enterprise software that delivers measurable value
+          </Reveal>
+          <Reveal as="p" className={styles.bio} delay={120}>
+            {profile.bio}
+          </Reveal>
+
+          <Reveal className={styles.skillsBlock} delay={180}>
+            <h3 className={styles.subhead}>Core skills</h3>
+            <ul className={styles.skills}>
+              {profile.skills.map((skill) => (
+                <li key={skill} className={styles.skill}>{skill}</li>
+              ))}
+            </ul>
+          </Reveal>
+
+          <Reveal className={styles.metaGrid} delay={240}>
+            <div className={styles.langs}>
+              <h3 className={styles.subhead}>Languages</h3>
+              <ul className={styles.langList}>
+                {profile.languages.map((l) => (
+                  <li key={l.name} className={styles.langItem}>
+                    <span className={styles.langName}>{l.name}</span>
+                    <span className={styles.langLevel}>{l.level}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div className={styles.stats}>
+              {profile.stats.map((s) => (
+                <div key={s.label} className={styles.statCard}>
+                  <span className={styles.statValue}>{s.value}</span>
+                  <span className={styles.statLabel}>{s.label}</span>
+                </div>
+              ))}
+            </div>
+          </Reveal>
         </div>
-
-        {/* Social icons */}
-        <div ref={socialsRef} className={styles.socials}>
-          {SOCIALS.map(({ Icon, href, label }) => (
-            <a
-              key={label}
-              href={href}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-              className={styles.socialLink}
-            >
-              <Icon />
-            </a>
-          ))}
-        </div>
-      </div>
-
-      {/* ── Right: content ───────────────────────────── */}
-      <div ref={contentRef} className={styles.content}>
-
-        {/* Who I Am - label + infinite marquee */}
-        <p className={styles.whoLabel}>Who I Am</p>
-        <div className={styles.marqueeWrap}>
-          <div className={styles.marqueeTrack}>
-            {[...WHO_ITEMS, ...WHO_ITEMS].map((item, i) => (
-              <span key={i} className={styles.marqueeItem}>
-                {item}
-                <span className={styles.marqueeDot}>·</span>
-              </span>
-            ))}
-          </div>
-        </div>
-
-        {/* Bio text - typewriter: all chars always in DOM, only color changes */}
-        <div className={styles.bioWrap}>
-          <p className={styles.bio}>
-            {BIO.split('').map((char, i) => (
-              <span
-                key={i}
-                className={
-                  i < typed
-                    ? (i === typed - 1 && !done ? styles.lastTyped : styles.typed)
-                    : styles.untyped
-                }
-              >
-                {char}
-              </span>
-            ))}
-          </p>
-        </div>
-
       </div>
     </section>
   )

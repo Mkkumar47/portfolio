@@ -1,0 +1,157 @@
+.section {
+  background: var(--bg-subtle);
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+}
+
+.head {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 1.25rem;
+  margin-bottom: clamp(2rem, 4vw, 3rem);
+}
+.title { font-size: var(--fs-h2); margin-top: 0.75rem; }
+.lead { font-size: var(--fs-body); color: var(--text-muted); max-width: 40ch; }
+
+/* ── List ── */
+.list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+.item {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: clamp(1rem, 2.5vw, 1.75rem);
+  padding: clamp(1.1rem, 2.5vw, 1.6rem);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.25s var(--ease), box-shadow 0.25s var(--ease), border-color 0.25s var(--ease);
+}
+.item:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--border-strong);
+}
+.num {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--accent);
+  font-variant-numeric: tabular-nums;
+}
+.itemBody { min-width: 0; }
+.itemTop {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.6rem;
+}
+.itemTitle { font-size: 1.05rem; font-weight: 600; }
+.platform {
+  font-size: 0.7rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.06em;
+  color: var(--text-muted);
+  background: var(--ink-50);
+  border: 1px solid var(--border);
+  padding: 0.2rem 0.6rem;
+  border-radius: var(--radius-pill);
+}
+.itemDesc { font-size: 0.9rem; color: var(--text-muted); margin-top: 0.4rem; line-height: 1.6; }
+.itemRight {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  gap: 0.35rem;
+  white-space: nowrap;
+}
+.year { font-size: 0.85rem; font-weight: 600; color: var(--text-faint); }
+.read {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--text);
+}
+.item:hover .read { color: var(--accent); }
+
+/* ── Education + honors grid ── */
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: clamp(1.5rem, 3vw, 2.25rem);
+  margin-top: clamp(2rem, 4vw, 3rem);
+}
+.panel {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  padding: clamp(1.5rem, 3vw, 2rem);
+  box-shadow: var(--shadow-sm);
+}
+.panelTitle {
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 1.1rem;
+}
+.panelTitleSpaced { margin-top: 1.85rem; }
+
+.eduList { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1.1rem; }
+.eduItem {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+  padding-left: 1rem;
+  border-left: 2px solid var(--border-strong);
+}
+.eduPeriod { font-size: 0.74rem; font-weight: 600; color: var(--accent); letter-spacing: 0.03em; }
+.eduDegree { font-size: 0.98rem; font-weight: 600; }
+.eduInst { font-size: 0.88rem; color: var(--text-muted); }
+.eduField { font-size: 0.8rem; color: var(--text-faint); }
+
+.awardList { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 0.65rem; }
+.awardItem {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.55rem;
+  font-size: 0.92rem;
+  color: var(--text);
+}
+.awardIcon { color: var(--accent); flex-shrink: 0; margin-top: 0.15rem; }
+
+.certList { display: flex; flex-wrap: wrap; gap: 0.5rem; list-style: none; margin: 0; padding: 0; }
+.certItem {
+  font-size: 0.8rem;
+  font-weight: 500;
+  color: var(--text-muted);
+  background: var(--ink-50);
+  border: 1px solid var(--border);
+  padding: 0.4rem 0.8rem;
+  border-radius: var(--radius-pill);
+}
+
+/* ── Responsive ── */
+@media (max-width: 760px) {
+  .grid { grid-template-columns: 1fr; }
+  .item { grid-template-columns: auto 1fr; }
+  .itemRight {
+    grid-column: 2;
+    flex-direction: row;
+    align-items: center;
+    gap: 0.85rem;
+    margin-top: 0.5rem;
+  }
+}

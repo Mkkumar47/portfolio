@@ -1,29 +1,13 @@
-import { Geist, Geist_Mono, Baloo_2, Dancing_Script } from "next/font/google";
+import { Poppins } from "next/font/google";
 import "./globals.css";
-import Cursor from "@/components/ui/Cursor";
 import { SITE_URL } from '@/lib/siteConfig';
 import { Analytics } from "@vercel/analytics/next";
 
-const geistSans = Geist({
-  variable: "--font-geist-sans",
+const poppins = Poppins({
+  variable: "--font-poppins",
   subsets: ["latin"],
-});
-
-const geistMono = Geist_Mono({
-  variable: "--font-geist-mono",
-  subsets: ["latin"],
-});
-
-const baloo = Baloo_2({
-  variable: "--font-baloo",
-  subsets: ["latin"],
-  weight: ["400", "600", "800"],
-});
-
-const dancing = Dancing_Script({
-  variable: "--font-dancing",
-  subsets: ["latin"],
-  weight: ["400", "700"],
+  weight: ["400", "500", "600", "700", "800"],
+  display: "swap",
 });
 
 export const metadata = {
@@ -33,16 +17,18 @@ export const metadata = {
     template: '%s | Manikanta Kumar Redrouthu',
   },
   description:
-    'Full Stack Engineer with 4+ years building scalable web and AI-powered systems using MERN, Next.js, and Python. Available worldwide for collaborations.',
+    'Advanced Lead Full Stack Developer with 8+ years building scalable, client-focused enterprise applications using Angular, .NET Core, TypeScript, Node.js, and Azure cloud integrations.',
   keywords: [
     'Manikanta Kumar Redrouthu',
     'Lead Full Stack Developer',
+    'Angular Architect',
     'Software Engineer',
-    'MERN Stack',
-    'Next.js Developer',
-    'React Developer',
+    '.NET Core Developer',
+    'Angular Developer',
+    'TypeScript',
     'Node.js',
-    'AI Systems',
+    'Azure',
+    'Enterprise Applications',
     'Portfolio',
     'India',
   ],
@@ -55,7 +41,7 @@ export const metadata = {
     siteName: 'Manikanta Kumar Redrouthu',
     title: 'Manikanta Kumar Redrouthu | Lead Full Stack Developer',
     description:
-      'Full Stack Engineer with 8+ years building scalable web and AI-powered systems using,.Net Core, MERN, Next.js. Available worldwide for collaborations.',
+      'Advanced Lead Full Stack Developer with 8+ years building scalable enterprise applications using Angular, .NET Core, and Azure. Open to remote opportunities worldwide.',
     images: [
       {
         url: '/opengraph-image',
@@ -69,7 +55,7 @@ export const metadata = {
     card: 'summary_large_image',
     title: 'Manikanta Kumar Redrouthu | Lead Full Stack Developer',
     description:
-      'Full Stack Engineer with 8+ years building scalable web and AI-powered systems using,.Net Core, MERN, Next.js. Available worldwide for collaborations.',
+      'Advanced Lead Full Stack Developer with 8+ years building scalable enterprise applications using Angular, .NET Core, and Azure.',
     images: ['/opengraph-image'],
   },
   robots: {
@@ -104,13 +90,16 @@ export const metadata = {
   manifest: '/favicons/manifest.webmanifest',
 };
 
+export const viewport = {
+  themeColor: '#ffffff',
+  width: 'device-width',
+  initialScale: 1,
+};
+
 export default function RootLayout({ children }) {
   return (
-    <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} ${dancing.variable} h-full antialiased`}
-    >
-      <body suppressHydrationWarning className={`${geistSans.variable} ${geistMono.variable} ${baloo.variable} ${dancing.variable} h-full antialiased`}>
+    <html lang="en" className={`${poppins.variable}`}>
+      <body suppressHydrationWarning className={`${poppins.variable} antialiased`}>
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -120,16 +109,15 @@ export default function RootLayout({ children }) {
               name: 'Manikanta Kumar Redrouthu',
               url: SITE_URL,
               email: 'manikanta.redrouthu47@gmail.com',
-              jobTitle: 'Lead Full Stack Developer',
+              jobTitle: 'Advanced Lead Full Stack Developer',
               sameAs: [
                 'https://github.com/Mkkumar47',
-                'https://www.linkedin.com/in/manikanta-kumar-redrouthu',
-
+                'https://www.linkedin.com/in/manikanta-kumar-redrouthu-98b51b1a0',
               ],
             }),
           }}
         />
-        <Cursor />
+        <a href="#main" className="skip-link">Skip to content</a>
         {children}
         <Analytics />
       </body>

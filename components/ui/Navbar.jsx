@@ -1,166 +1,139 @@
 'use client'
 
 import { useEffect, useRef, useState } from 'react'
-import {
-  NavigationMenu,
-  NavigationMenuList,
-  NavigationMenuItem,
-  NavigationMenuLink,
-} from '@/components/ui/navigation-menu'
-import { gsap } from '@/lib/gsap'
 import profile from '@/data/profile.json'
 import styles from '@/styles/ui/Navbar.module.css'
-import { FaBars, FaTimes } from 'react-icons/fa'
+import { FiMenu, FiX, FiArrowUpRight } from 'react-icons/fi'
 
-// idx matches snap position in page.js (0=video,1=hero,2=about,3-4=projects,5=work-exp,6=publications,7=footer)
 const NAV_ITEMS = [
-  { label: 'Home',         idx: 0 },
-  { label: 'About',        idx: 2 },
-  { label: 'Projects',     idx: 3 },
-  { label: 'Experience',   idx: 5 },
-  { label: 'Publications', idx: 6 },
-  { label: 'Contact',      idx: 7 },
+  { label: 'Home',         id: 'home' },
+  { label: 'About',        id: 'about' },
+  { label: 'Projects',     id: 'projects' },
+  { label: 'Experience',   id: 'experience' },
+  { label: 'Publications', id: 'publications' },
+  { label: 'Contact',      id: 'contact' },
 ]
 
-function getIST() {
-  return new Date().toLocaleTimeString('en-IN', {
-    timeZone: 'Asia/Kolkata',
-    hour: '2-digit',
-    minute: '2-digit',
-    second: '2-digit',
-    hour12: true,
-  }).toUpperCase()
-}
-
 export default function Navbar() {
-  const [time,    setTime]    = useState('')   // '' on SSR - avoids hydration mismatch
-  const [onIntro, setOnIntro] = useState(true)
-  const [onDark,  setOnDark]  = useState(false)
+  const [active, setActive]   = useState('home')
+  const [scrolled, setScrolled] = useState(false)
   const [menuOpen, setMenuOpen] = useState(false)
-  const headerRef   = useRef(null)
-  const lastY       = useRef(0)
-  const hidden      = useRef(false)
-  const stopTimer   = useRef(null)
+  const menuBtnRef = useRef(null)
 
-  // Live clock - set immediately on mount, then every second
+  /* ── Scroll spy + condensed-on-scroll state ── */
   useEffect(() => {
-    setTime(getIST())
-    const id = setInterval(() => setTime(getIST()), 1000)
-    return () => clearInterval(id)
-  }, [])
+    const sections = NAV_ITEMS
+      .map(({ id }) => document.getElementById(id))
+      .filter(Boolean)
 
-  // Auto-hide on scroll-down, reveal on scroll-up or scroll-stop
-  useEffect(() => {
-    const scroller = document.querySelector('main') ?? window
-    const vh = window.innerHeight
+    const io = new IntersectionObserver(
+      (entries) => {
+        // Pick the entry most in view.
+        const visible = entries
+          .filter((e) => e.isIntersecting)
+          .sort((a, b) => b.intersectionRatio - a.intersectionRatio)
+        if (visible[0]) setActive(visible[0].target.id)
+      },
+      { rootMargin: '-45% 0px -50% 0px', threshold: [0, 0.25, 0.5, 1] },
+    )
+    sections.forEach((s) => io.observe(s))
 
-    function showNavbar() {
-      if (!hidden.current) return
-      gsap.to(headerRef.current, { y: '0%', duration: 0.35, ease: 'power2.out' })
-      hidden.current = false
-    }
+    const onScroll = () => setScrolled(window.scrollY > 24)
+    onScroll()
+    window.addEventListener('scroll', onScroll, { passive: true })
 
-    const onScroll = () => {
-      const currentY = scroller.scrollTop ?? window.scrollY
-      const delta    = currentY - lastY.current
-
-      const sectionIdx = Math.round(currentY / vh)
-      setOnIntro(currentY < vh * 0.8)
-      setOnDark(sectionIdx >= 3)
-
-      if (delta > 8 && !hidden.current) {
-        gsap.to(headerRef.current, { y: '-100%', duration: 0.35, ease: 'power2.inOut' })
-        hidden.current = true
-      } else if (delta < -6) {
-        showNavbar()
-      }
-
-      lastY.current = currentY
-
-      // Show navbar 400 ms after scrolling stops
-      clearTimeout(stopTimer.current)
-      stopTimer.current = setTimeout(showNavbar, 400)
-    }
-
-    scroller.addEventListener('scroll', onScroll, { passive: true })
     return () => {
-      scroller.removeEventListener('scroll', onScroll)
-      clearTimeout(stopTimer.current)
+      io.disconnect()
+      window.removeEventListener('scroll', onScroll)
     }
   }, [])
+
+  /* ── Lock body + Escape to close mobile menu ── */
+  useEffect(() => {
+    if (!menuOpen) return
+    document.body.style.overflow = 'hidden'
+    const onKey = (e) => { if (e.key === 'Escape') closeMenu() }
+    window.addEventListener('keydown', onKey)
+    return () => {
+      document.body.style.overflow = ''
+      window.removeEventListener('keydown', onKey)
+    }
+  }, [menuOpen])
+
+  function closeMenu() {
+    setMenuOpen(false)
+    menuBtnRef.current?.focus()
+  }
 
   return (
-    <>
-      <header ref={headerRef} className={`${styles.header} ${onIntro ? styles.introMode : ''} ${onDark ? styles.darkMode : ''}`}>
-        <span className={styles.time}>INDIA TIME - {time}</span>
-
-        <NavigationMenu className={styles.navMenu}>
-          <NavigationMenuList className="flex gap-6">
-            {NAV_ITEMS.map(({ label, idx }) => (
-              <NavigationMenuItem key={label}>
-                <NavigationMenuLink
-                  className={styles.navLink}
-                  onClick={() => {
-                    const scroller = document.querySelector('main')
-                    if (scroller) gsap.to(scroller, {
-                      scrollTop: idx * window.innerHeight,
-                      duration: 1.0,
-                      ease: 'power3.inOut',
-                    })
-                  }}
-                  style={{ cursor: 'pointer' }}
-                >
-                  {label}
-                </NavigationMenuLink>
-              </NavigationMenuItem>
-            ))}
-          </NavigationMenuList>
-        </NavigationMenu>
-
-        <a
-          href={`mailto:${profile.email}`}
-          className={`${styles.emailBtn} rounded-full text-xs font-semibold px-5 h-8`}
-        >
-          Email me
+    <header className={`${styles.header} ${scrolled ? styles.scrolled : ''}`}>
+      <nav className={styles.nav} aria-label="Primary">
+        {/* Brand */}
+        <a href="#home" className={styles.brand} aria-label={`${profile.name.full} — home`}>
+          <span className={styles.monogram} aria-hidden="true">
+            {profile.name.first[0]}{profile.name.last[0]}
+          </span>
+          <span className={styles.brandName}>{profile.name.full}</span>
         </a>
 
-        <button
-          className={styles.hamburger}
-          onClick={() => setMenuOpen(o => !o)}
-          aria-label="Toggle menu"
-        >
-          {menuOpen ? <FaTimes size={18} /> : <FaBars size={18} />}
-        </button>
-      </header>
-
-      {menuOpen && (
-        <div className={styles.mobileMenu}>
-          {NAV_ITEMS.map(({ label, idx }) => (
-            <button
-              key={label}
-              className={styles.mobileNavLink}
-              onClick={() => {
-                const scroller = document.querySelector('main')
-                if (scroller) gsap.to(scroller, {
-                  scrollTop: idx * window.innerHeight,
-                  duration: 1.0,
-                  ease: 'power3.inOut',
-                })
-                setMenuOpen(false)
-              }}
-            >
-              {label}
-            </button>
+        {/* Desktop links */}
+        <ul className={styles.links}>
+          {NAV_ITEMS.map(({ label, id }) => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                className={`${styles.link} ${active === id ? styles.active : ''}`}
+                aria-current={active === id ? 'true' : undefined}
+              >
+                {label}
+              </a>
+            </li>
           ))}
-          <a
-            href={`mailto:${profile.email}`}
-            className={styles.mobileMailLink}
-            onClick={() => setMenuOpen(false)}
-          >
-            {profile.email}
-          </a>
-        </div>
-      )}
-    </>
+        </ul>
+
+        {/* CTA */}
+        <a href="#contact" className={styles.cta}>
+          Get in touch <FiArrowUpRight aria-hidden="true" />
+        </a>
+
+        {/* Mobile toggle */}
+        <button
+          ref={menuBtnRef}
+          type="button"
+          className={styles.toggle}
+          aria-expanded={menuOpen}
+          aria-controls="mobile-menu"
+          aria-label={menuOpen ? 'Close menu' : 'Open menu'}
+          onClick={() => setMenuOpen((o) => !o)}
+        >
+          {menuOpen ? <FiX size={22} /> : <FiMenu size={22} />}
+        </button>
+      </nav>
+
+      {/* Mobile drawer */}
+      <div
+        id="mobile-menu"
+        className={`${styles.drawer} ${menuOpen ? styles.drawerOpen : ''}`}
+        hidden={!menuOpen}
+      >
+        <ul className={styles.drawerLinks}>
+          {NAV_ITEMS.map(({ label, id }) => (
+            <li key={id}>
+              <a
+                href={`#${id}`}
+                className={`${styles.drawerLink} ${active === id ? styles.drawerActive : ''}`}
+                aria-current={active === id ? 'true' : undefined}
+                onClick={closeMenu}
+              >
+                {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+        <a href={`mailto:${profile.email}`} className={styles.drawerMail} onClick={closeMenu}>
+          {profile.email}
+        </a>
+      </div>
+    </header>
   )
 }

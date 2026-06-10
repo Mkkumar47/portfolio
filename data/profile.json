@@ -151,23 +151,43 @@
   "projects": [
     {
       "id": 1,
+      "title": "HGV ONEX Platform",
+      "subtitle": "Hilton Grand Vacations · ONEX API Integrations & Booking SPA (2024–2025)",
+      "type": "Travel Booking Platform",
+      "link": "https://www.hiltongrandvacations.com/",
+      "image": "/assets/hgv-oneconsole.png",
+      "tech": ["Angular", ".NET Core", "TypeScript", "SCSS", "PrimeNG", "Ng Bootstrap", "Jenkins", "Figma"],
+      "desc": "Led front-end delivery of Hilton Grand Vacations' ONEX platform — integrating ONEX APIs across 4 HGV partners and building a single-page search and booking experience. Drove the migration to Angular standalone components for a modular, reusable codebase, optimized cross-team code reviews, and contributed to feature architecture, yearly scope planning, knowledge-transfer sessions, and onboarding of new team members."
+    },
+    {
+      "id": 2,
       "title": "Equifax CCMS Platform",
       "subtitle": "Angular + Salesforce Canvas Enterprise Integration",
       "type": "Enterprise Platform",
-      "link": "https://www.epam.com/",
-      "image": "/assets/project-artgenio.png",
+      "link": "https://www.equifax.com/",
+      "image": "/assets/Equifax-project.jpg",
       "tech": ["Angular", "TypeScript", "Salesforce Canvas", "Micro Frontends", "Cypress"],
       "desc": "Led delivery of key CCMS capabilities with accelerated milestones, Salesforce integration, and measurable improvements in user engagement and operational performance."
     },
     {
-      "id": 2,
+      "id": 3,
       "title": "360 ValueMeter",
       "subtitle": "Business Assessment and Analytics Solution",
       "type": "Enterprise Analytics",
-      "link": "https://www.accenture.com/",
-      "image": "/assets/project-easyfolio.png",
+      "link": "https://www.accenture.com/content/dam/accenture/final/corporate/corporate-initiatives/sustainability/document/360-Value-Report-2023.pdf",
+      "image": "/assets/Accenture-360value-project.svg",
       "tech": ["Angular", ".NET Core", "PostgreSQL", "D3.js", "JavaScript"],
       "desc": "Contributed to a strategic organizational analytics asset that helps clients assess and improve business dimensions such as finance, experience, and inclusion metrics."
+    },
+    {
+      "id": 4,
+      "title": "PMO Data & RoadMap Assessment",
+      "subtitle": "Accenture Internal · Staffing, Finance & Demand Analytics + UAF",
+      "type": "Enterprise Analytics",
+      "link": "https://www.accenture.com/",
+      "image": "/assets/Accenture-360value-project.svg",
+      "tech": ["KnockoutJS", "Redux", ".NET MVC", "Highcharts.js", "Angular", "D3.js", "Azure DevOps"],
+      "desc": "Built PMO Data to visualize staffing, finance, and demand across delivery units and projects — with Excel export and Highcharts visual analytics on a .NET MVC + KnockoutJS stack. Designed the RoadMap Assessment platform for evaluating client journeys at Service Line and Business Unit levels, then introduced the Unified Assessment Form (UAF) that let clients build tailored assessments and cut assessment workload by 80%."
     }
   ],
   "publications": [
@@ -197,10 +217,10 @@
     }
   ],
   "socials": [
-    { "label": "GitHub", "href": "https://github.com/" },
+    { "label": "GitHub", "href": "https://github.com/Mkkumar47" },
     { "label": "LinkedIn", "href": "https://www.linkedin.com/in/manikanta-kumar-redrouthu-98b51b1a0" },
-    { "label": "Instagram", "href": "https://www.instagram.com/" },
-    { "label": "Medium", "href": "https://medium.com/" }
+    { "label": "Instagram", "href": "https://www.instagram.com/manikanta6821/" },
+    { "label": "Medium", "href": "https://medium.com/@manikanta.redrouthu47" }
   ],
   "languages": [
     { "name": "Telugu", "level": "Native or Bilingual" },

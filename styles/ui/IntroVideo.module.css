@@ -1,0 +1,138 @@
+.overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 9999;
+  background: #050505;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  opacity: 1;
+  animation: introIn 0.4s var(--ease) both;
+}
+.closing {
+  animation: introOut 0.65s var(--ease) forwards;
+  pointer-events: none;
+}
+
+@keyframes introIn { from { opacity: 0; } to { opacity: 1; } }
+@keyframes introOut {
+  from { opacity: 1; }
+  to { opacity: 0; visibility: hidden; }
+}
+
+.video {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  /* "contain" shows the full frame (no crop / zoom-in) on the black backdrop */
+  object-fit: contain;
+  background: #050505;
+}
+
+/* Darkening + vignette so the brand text stays legible */
+.scrim {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, rgba(5,5,5,0.55) 0%, rgba(5,5,5,0.2) 45%, rgba(5,5,5,0.8) 100%),
+    radial-gradient(120% 90% at 50% 50%, transparent 40%, rgba(5,5,5,0.7) 100%);
+}
+
+/* ── Brand text ── */
+.content {
+  position: relative;
+  z-index: 1;
+  text-align: center;
+  padding: 0 1.5rem;
+  color: #fff;
+  animation: textRise 1s var(--ease) 0.3s both;
+}
+.role {
+  display: inline-block;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.7);
+}
+.name {
+  font-size: clamp(2.25rem, 8vw, 5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.02;
+  margin-top: 0.85rem;
+  color: #fff;
+}
+.tag {
+  display: inline-block;
+  margin-top: 1rem;
+  font-size: 0.85rem;
+  color: rgba(255, 255, 255, 0.6);
+}
+
+@keyframes textRise {
+  from { opacity: 0; transform: translateY(18px); }
+  to   { opacity: 1; transform: none; }
+}
+
+/* ── Controls (sound + skip) ── */
+.controls {
+  position: absolute;
+  z-index: 2;
+  right: clamp(1rem, 4vw, 2.5rem);
+  bottom: clamp(1.5rem, 4vw, 2.75rem);
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+}
+.sound,
+.skip {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.15rem;
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #fff;
+  background: rgba(255, 255, 255, 0.1);
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: var(--radius-pill);
+  cursor: pointer;
+  backdrop-filter: blur(8px);
+  transition: background 0.25s var(--ease), border-color 0.25s var(--ease), gap 0.25s var(--ease), color 0.25s var(--ease);
+}
+.sound:hover,
+.skip:hover {
+  background: rgba(255, 255, 255, 0.92);
+  color: #050505;
+  border-color: transparent;
+  gap: 0.65rem;
+}
+.sound:focus-visible,
+.skip:focus-visible {
+  outline: 3px solid #fff;
+  outline-offset: 3px;
+}
+
+/* ── Video progress ── */
+.progressTrack {
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 3px;
+  background: rgba(255, 255, 255, 0.12);
+  z-index: 2;
+}
+.progressBar {
+  height: 100%;
+  width: 0;
+  background: var(--accent-on-dark, #60a5fa);
+  transition: width 0.2s linear;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overlay, .content { animation: none; }
+}
