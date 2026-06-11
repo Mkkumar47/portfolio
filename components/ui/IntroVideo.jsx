@@ -9,10 +9,9 @@ import styles from '@/styles/ui/IntroVideo.module.css'
  * IntroVideo — one-time startup splash that plays about-me.mp4, then reveals
  * the page.
  *
- * Audio: browsers block autoplay WITH sound, so the clip must start muted to
- * play at all. On mount we make a best-effort attempt to unmute; if the
- * browser refuses, it falls back to muted and the user can enable sound with
- * the speaker button.
+ * Audio: tries to start with sound on by default. If browser autoplay policy
+ * blocks sound, it falls back to muted playback and enables sound on the
+ * first user interaction.
  *
  * a11y: auto-dismiss on end, "Skip intro" button + Escape, once per session,
  * skipped entirely for prefers-reduced-motion, body scroll locked while shown.
@@ -21,7 +20,7 @@ export default function IntroVideo() {
   const [show, setShow] = useState(true)
   const [closing, setClosing] = useState(false)
   const [progress, setProgress] = useState(0)
-  const [soundOn, setSoundOn] = useState(false)
+  const [soundOn, setSoundOn] = useState(true)
   const videoRef = useRef(null)
   const dismissedRef = useRef(false)
   const skipBtnRef = useRef(null)
@@ -60,17 +59,45 @@ export default function IntroVideo() {
     skipBtnRef.current?.focus()
 
     const v = videoRef.current
+    let unlockAudio
     if (v) {
-      // Guarantee playback (muted), then best-effort unmute.
-      v.muted = true
-      v.play().catch(() => {})
-      v.muted = false
+      const enableAudio = () => {
+        v.defaultMuted = false
+        v.muted = false
+        v.volume = 1
+        setSoundOn(true)
+        v.play().catch(() => {})
+      }
+
+      const installFirstInteractionUnlock = () => {
+        unlockAudio = () => {
+          enableAudio()
+        }
+        window.addEventListener('pointerdown', unlockAudio, { once: true })
+        window.addEventListener('keydown', unlockAudio, { once: true })
+      }
+
+      // Start with sound on by default.
+      enableAudio()
+
       v.play()
-        .then(() => setSoundOn(true))
+        .then(() => {
+          // Some browsers may keep autoplay effectively muted; recover on first interaction.
+          if (v.muted || v.volume === 0) {
+            v.defaultMuted = true
+            v.muted = true
+            setSoundOn(false)
+            installFirstInteractionUnlock()
+          } else {
+            setSoundOn(true)
+          }
+        })
         .catch(() => {
+          v.defaultMuted = true
           v.muted = true
           setSoundOn(false)
           v.play().catch(() => {})
+          installFirstInteractionUnlock()
         })
     }
 
@@ -79,6 +106,10 @@ export default function IntroVideo() {
     const safety = window.setTimeout(dismiss, 16000)
 
     return () => {
+      if (unlockAudio) {
+        window.removeEventListener('pointerdown', unlockAudio)
+        window.removeEventListener('keydown', unlockAudio)
+      }
       window.removeEventListener('keydown', onKey)
       window.clearTimeout(safety)
       document.body.style.overflow = ''
@@ -104,7 +135,6 @@ export default function IntroVideo() {
         ref={videoRef}
         className={styles.video}
         src="/assets/about-me.mp4"
-        muted
         autoPlay
         playsInline
         preload="auto"

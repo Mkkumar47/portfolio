@@ -17,7 +17,7 @@ export default function PublicationsSection() {
           </Reveal>
         </div>
 
-        {/* ── Publications / certifications list ── */}
+        {/* ── Featured publications ── */}
         <ul className={styles.list}>
           {profile.publications.map((pub, i) => (
             <Reveal as="li" key={pub.id} delay={i * 70}>
@@ -44,6 +44,46 @@ export default function PublicationsSection() {
           ))}
         </ul>
 
+        {/* ── All certifications ── */}
+        <Reveal className={styles.certHeadRow}>
+          <h3 className={styles.blockTitle}>
+            Certifications <span className={styles.count}>({profile.certifications.length})</span>
+          </h3>
+          {profile.certificationsUrl && (
+            <a
+              className={styles.panelLink}
+              href={profile.certificationsUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+            >
+              View all on LinkedIn <FiArrowUpRight aria-hidden="true" />
+            </a>
+          )}
+        </Reveal>
+
+        <ul className={styles.certGrid}>
+          {profile.certifications.map((c, i) => {
+            const Wrapper = c.url ? 'a' : 'div'
+            const linkProps = c.url
+              ? { href: c.url, target: '_blank', rel: 'noopener noreferrer' }
+              : {}
+            return (
+              <Reveal as="li" key={c.title} delay={(i % 3) * 60}>
+                <Wrapper className={styles.certCard} {...linkProps}>
+                  <div className={styles.certCardTop}>
+                    <h4 className={styles.certTitle}>{c.title}</h4>
+                    {c.url && <FiArrowUpRight className={styles.certArrow} aria-hidden="true" />}
+                  </div>
+                  <span className={styles.certIssuer}>{c.issuer}</span>
+                  <span className={styles.certMeta}>
+                    {c.issued}{c.expires ? ` · Expires ${c.expires}` : ''}
+                  </span>
+                </Wrapper>
+              </Reveal>
+            )
+          })}
+        </ul>
+
         {/* ── Education + honors ── */}
         <div className={styles.grid}>
           <Reveal className={styles.panel}>
@@ -68,13 +108,6 @@ export default function PublicationsSection() {
                   <FiAward className={styles.awardIcon} aria-hidden="true" />
                   {h}
                 </li>
-              ))}
-            </ul>
-
-            <h3 className={`${styles.panelTitle} ${styles.panelTitleSpaced}`}>Certifications</h3>
-            <ul className={styles.certList}>
-              {profile.certifications.map((c) => (
-                <li key={c} className={styles.certItem}>{c}</li>
               ))}
             </ul>
           </Reveal>

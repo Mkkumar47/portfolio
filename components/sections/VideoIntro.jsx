@@ -23,7 +23,7 @@ export default function VideoIntro() {
   const hintRef     = useRef(null)
 
   // muted state drives icon only - DOM muted property is controlled exclusively via ref
-  const [muted,    setMuted]    = useState(true)
+  const [muted,    setMuted]    = useState(false)
   const [playing,  setPlaying]  = useState(true)
   const [showHint, setShowHint] = useState(true)
   const [isMobile, setIsMobile] = useState(false)
@@ -42,12 +42,12 @@ export default function VideoIntro() {
     return () => tl.kill()
   }, [])
 
-  // Video fade-in - no auto-unmute; user must click the button
+  // Video fade-in - start unmuted by default
   useEffect(() => {
     const v = videoRef.current
     if (!v) return
-    // Guarantee muted on mount regardless of browser attribute handling
-    v.muted = true
+    // Keep DOM property in sync with the default control state
+    v.muted = false
     const t = gsap.fromTo(v, { opacity: 0 }, { opacity: 1, duration: 1.2, ease: 'power2.out' })
     return () => t.kill()
   }, [])
@@ -125,12 +125,12 @@ export default function VideoIntro() {
         className={styles.bgVideo}
       />
 
-      {/* 2 - Main video: static `muted` attr so React never touches the DOM property on re-renders */}
+      {/* 2 - Main video */}
       <video
         ref={videoRef}
         data-testid="intro-video"
         src="/assets/about-me.mp4"
-        muted playsInline
+        playsInline
         onPlay={() => setPlaying(true)}
         onPause={() => setPlaying(false)}
         onEnded={handleEnded}
