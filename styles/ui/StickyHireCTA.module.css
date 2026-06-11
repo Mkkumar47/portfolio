@@ -1,0 +1,49 @@
+.cta {
+  position: fixed;
+  right: clamp(1rem, 3vw, 2rem);
+  bottom: clamp(1rem, 3vw, 2rem);
+  z-index: 150;
+
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+
+  padding: 0.85rem 1.4rem;
+  border-radius: var(--radius-pill);
+  background: var(--accent-strong);
+  color: #fff;
+  font-weight: 600;
+  font-size: var(--fs-small);
+  box-shadow: var(--shadow-md), var(--shadow-glow);
+
+  opacity: 0;
+  transform: translateY(16px) scale(0.92);
+  pointer-events: none;
+  transition:
+    opacity 0.35s var(--ease),
+    transform 0.35s var(--ease),
+    background 0.2s var(--ease);
+  animation: pulseGlow 2.6s ease-in-out infinite;
+}
+
+.cta.visible {
+  opacity: 1;
+  transform: none;
+  pointer-events: auto;
+}
+
+.cta:hover {
+  background: var(--accent-hover);
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--status-available);
+  box-shadow: 0 0 8px var(--status-available);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .cta { animation: none; }
+}

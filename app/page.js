@@ -1,6 +1,8 @@
 import Navbar from '@/components/ui/Navbar'
 import ScrollProgress from '@/components/ui/ScrollProgress'
 import IntroVideo from '@/components/ui/IntroVideo'
+import StickyHireCTA from '@/components/ui/StickyHireCTA'
+import SceneBackground from '@/components/three/SceneBackground'
 import HeroSection from '@/components/sections/HeroSection'
 import AboutSection from '@/components/sections/AboutSection'
 import ProjectsSection from '@/components/sections/ProjectsSection'
@@ -18,8 +20,10 @@ export default function Home() {
   return (
     <>
       <IntroVideo />
+      <SceneBackground />
       <ScrollProgress />
       <Navbar />
+      <StickyHireCTA />
       <main id="main">
         <HeroSection />
         <AboutSection />

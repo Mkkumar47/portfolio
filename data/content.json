@@ -7,7 +7,12 @@
     "freelanceNote": "Open to remote full-time opportunities and high-impact enterprise projects.",
     "availableLabel": "Open to opportunities",
     "pills": ["Angular Architect", "Full Stack Engineer", ".NET Core", "Cloud Integrations"],
-    "specialistStat": { "value": "Angular + .NET", "label": "Enterprise Specialist" }
+    "specialistStat": { "value": "Angular + .NET", "label": "Enterprise Specialist" },
+    "ctaHire": "Hire me",
+    "ctaResume": "Download resume",
+    "ctaProjects": "View projects",
+    "resumeHref": "/assets/resume.pdf",
+    "responseNote": "Usually responds within 24 hours"
   },
   "interstitial": {
     "availabilityLabel": "Availability",

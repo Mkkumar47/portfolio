@@ -59,6 +59,7 @@ export default function IntroVideo() {
     skipBtnRef.current?.focus()
 
     const v = videoRef.current
+    const UNLOCK_EVENTS = ['pointerdown', 'touchstart', 'keydown', 'click']
     let unlockAudio
     if (v) {
       const enableAudio = () => {
@@ -73,8 +74,9 @@ export default function IntroVideo() {
         unlockAudio = () => {
           enableAudio()
         }
-        window.addEventListener('pointerdown', unlockAudio, { once: true })
-        window.addEventListener('keydown', unlockAudio, { once: true })
+        UNLOCK_EVENTS.forEach((ev) =>
+          window.addEventListener(ev, unlockAudio, { once: true }),
+        )
       }
 
       // Start with sound on by default.
@@ -107,8 +109,7 @@ export default function IntroVideo() {
 
     return () => {
       if (unlockAudio) {
-        window.removeEventListener('pointerdown', unlockAudio)
-        window.removeEventListener('keydown', unlockAudio)
+        UNLOCK_EVENTS.forEach((ev) => window.removeEventListener(ev, unlockAudio))
       }
       window.removeEventListener('keydown', onKey)
       window.clearTimeout(safety)

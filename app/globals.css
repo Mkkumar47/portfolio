@@ -1,42 +1,52 @@
 @import "tailwindcss";
 
 /* ============================================================
-   DESIGN SYSTEM — Minimal monochrome + single accent
+   DESIGN SYSTEM — Dark monochrome + single accent
    Single source of truth for all design tokens.
    ============================================================ */
 :root {
   /* ── Ink (monochrome scale) ─────────────────────────────── */
-  --ink-900: #0a0a0b;   /* near-black, headings / dark surfaces */
-  --ink-800: #18181b;
-  --ink-700: #27272a;
-  --ink-600: #3f3f46;
-  --ink-500: #52525b;   /* muted body text on white (AA) */
-  --ink-400: #71717a;   /* secondary / captions */
-  --ink-300: #a1a1aa;
-  --ink-200: #d4d4d8;
-  --ink-150: #e4e4e7;
-  --ink-100: #f4f4f5;
-  --ink-50:  #fafafa;
+  --ink-950: #060609;
+  --ink-900: #0a0a0e;   /* page background */
+  --ink-850: #101016;
+  --ink-800: #16161d;   /* raised surfaces */
+  --ink-700: #232330;
+  --ink-600: #3f3f4d;
+  --ink-500: #565666;
+  --ink-400: #7e7e90;   /* secondary / captions */
+  --ink-300: #a5a5b5;   /* muted body text on dark (AA) */
+  --ink-200: #d2d2dc;
+  --ink-150: #e2e2ea;
+  --ink-100: #f2f2f6;
+  --ink-50:  #fafafc;
 
   /* ── Single accent ──────────────────────────────────────── */
-  --accent:        #2563eb;   /* AA on white for normal text */
-  --accent-hover:  #1d4ed8;
-  --accent-soft:   #eff4ff;   /* tinted surface */
-  --accent-on-dark:#60a5fa;   /* accent against dark sections */
+  --accent:         #60a5fa;  /* AA on dark for normal text */
+  --accent-strong:  #3b82f6;  /* buttons / fills */
+  --accent-hover:   #2563eb;
+  --accent-soft:    rgba(96, 165, 250, 0.12);  /* tinted surface */
+  --accent-on-dark: #60a5fa;
+  --accent-glow:    rgba(59, 130, 246, 0.35);
 
   /* ── Semantic surfaces / text ───────────────────────────── */
-  --bg:            #ffffff;
-  --bg-subtle:     var(--ink-50);
-  --surface:       #ffffff;
-  --surface-dark:  var(--ink-900);
-  --text:          var(--ink-900);
-  --text-muted:    var(--ink-500);
+  --bg:            var(--ink-900);
+  --bg-subtle:     var(--ink-850);
+  --surface:       var(--ink-800);
+  --surface-dark:  var(--ink-950);
+  --text:          var(--ink-100);
+  --text-muted:    var(--ink-300);
   --text-faint:    var(--ink-400);
-  --text-on-dark:  #f4f4f5;
-  --text-on-dark-muted: #a1a1aa;
-  --border:        var(--ink-150);
-  --border-strong: var(--ink-200);
-  --status-available: #16a34a;
+  --text-on-dark:  var(--ink-100);
+  --text-on-dark-muted: var(--ink-300);
+  --border:        rgba(255, 255, 255, 0.08);
+  --border-strong: rgba(255, 255, 255, 0.16);
+  --status-available: #34d399;
+
+  /* ── Glass (frosted surfaces over the WebGL backdrop) ───── */
+  --glass-bg:        rgba(255, 255, 255, 0.04);
+  --glass-bg-strong: rgba(16, 16, 22, 0.72);
+  --glass-border:    rgba(255, 255, 255, 0.09);
+  --glass-blur:      14px;
 
   /* ── Typography scale (fluid) ───────────────────────────── */
   --font-ui: var(--font-poppins), system-ui, -apple-system, "Segoe UI", sans-serif;
@@ -59,19 +69,20 @@
   --radius-sm:  10px;
   --radius-pill: 9999px;
 
-  /* ── Elevation ──────────────────────────────────────────── */
-  --shadow-sm:  0 1px 2px rgba(10,10,11,0.04), 0 1px 3px rgba(10,10,11,0.06);
-  --shadow-md:  0 4px 12px rgba(10,10,11,0.06), 0 12px 28px rgba(10,10,11,0.08);
-  --shadow-lg:  0 12px 32px rgba(10,10,11,0.10), 0 28px 60px rgba(10,10,11,0.12);
+  /* ── Elevation (dark) ───────────────────────────────────── */
+  --shadow-sm:  0 1px 2px rgba(0,0,0,0.4), 0 1px 3px rgba(0,0,0,0.5);
+  --shadow-md:  0 4px 12px rgba(0,0,0,0.45), 0 12px 28px rgba(0,0,0,0.5);
+  --shadow-lg:  0 12px 32px rgba(0,0,0,0.5), 0 28px 60px rgba(0,0,0,0.55);
+  --shadow-glow: 0 0 24px var(--accent-glow);
 
   --ease: cubic-bezier(0.22, 1, 0.36, 1);
 
   /* ── shadcn/base-ui bridge ──────────────────────────────── */
   --background: var(--bg);
   --foreground: var(--text);
-  --primary: var(--ink-900);
-  --primary-foreground: #ffffff;
-  --muted: var(--ink-100);
+  --primary: var(--ink-100);
+  --primary-foreground: var(--ink-900);
+  --muted: var(--ink-800);
   --ring: var(--accent);
 }
 
@@ -146,8 +157,8 @@ button { font-family: inherit; }
   left: 1rem;
   top: -100px;
   z-index: 1000;
-  background: var(--ink-900);
-  color: #fff;
+  background: var(--ink-100);
+  color: var(--ink-900);
   padding: 0.75rem 1.25rem;
   border-radius: var(--radius-sm);
   font-weight: 600;
@@ -170,9 +181,12 @@ button { font-family: inherit; }
 
 .section {
   position: relative;
+  z-index: 1; /* keep content above the fixed WebGL backdrop */
   padding-block: var(--section-y);
   scroll-margin-top: var(--nav-h);
 }
+
+main { position: relative; z-index: 1; }
 
 .eyebrow {
   display: inline-flex;
@@ -189,6 +203,55 @@ button { font-family: inherit; }
   width: 1.75rem;
   height: 1px;
   background: var(--accent);
+}
+
+/* ── Glass card primitive ───────────────────────────────── */
+.glass {
+  background: var(--glass-bg);
+  border: 1px solid var(--glass-border);
+  border-radius: var(--radius);
+  backdrop-filter: blur(var(--glass-blur));
+  -webkit-backdrop-filter: blur(var(--glass-blur));
+}
+
+/* ============================================================
+   3D TILT (used via components/ui/Tilt3D.jsx)
+   ============================================================ */
+[data-tilt] {
+  transform-style: preserve-3d;
+  transform:
+    perspective(900px)
+    rotateX(var(--tilt-x, 0deg))
+    rotateY(var(--tilt-y, 0deg))
+    translateZ(0);
+  transition: transform 0.18s ease-out, box-shadow 0.3s var(--ease);
+  will-change: transform;
+}
+[data-tilt]:hover {
+  box-shadow: var(--shadow-lg), var(--shadow-glow);
+}
+[data-tilt] [data-tilt-pop] {
+  transform: translateZ(28px);
+}
+
+/* ============================================================
+   KEYFRAMES (shared motion vocabulary)
+   ============================================================ */
+@keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50%      { transform: translateY(-12px); }
+}
+@keyframes pulseGlow {
+  0%, 100% { box-shadow: 0 0 0 0 var(--accent-glow); }
+  50%      { box-shadow: 0 0 0 8px rgba(59, 130, 246, 0); }
+}
+@keyframes shimmer {
+  from { background-position: 200% center; }
+  to   { background-position: -200% center; }
+}
+@keyframes spinSlow {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
 }
 
 /* ============================================================
@@ -222,6 +285,9 @@ button { font-family: inherit; }
   }
   [data-reveal] {
     opacity: 1 !important;
+    transform: none !important;
+  }
+  [data-tilt] {
     transform: none !important;
   }
 }

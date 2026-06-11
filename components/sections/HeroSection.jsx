@@ -1,7 +1,8 @@
 import Image from 'next/image'
 import { FaGithub, FaLinkedinIn, FaInstagram, FaMedium } from 'react-icons/fa'
-import { FiArrowUpRight, FiArrowDown } from 'react-icons/fi'
+import { FiArrowUpRight, FiArrowDown, FiDownload, FiSend } from 'react-icons/fi'
 import Reveal from '@/components/ui/Reveal'
+import Tilt3D from '@/components/ui/Tilt3D'
 import profile from '@/data/profile.json'
 import content from '@/data/content.json'
 import styles from '@/styles/sections/HeroSection.module.css'
@@ -24,6 +25,7 @@ export default function HeroSection() {
           <Reveal as="p" className={styles.greeting}>
             {profile.available && <span className={styles.availDot} aria-hidden="true" />}
             {content.hero.availableLabel}
+            <span className={styles.greetingSub}>{content.hero.responseNote}</span>
           </Reveal>
 
           <Reveal as="h1" id="hero-name" className={styles.name} delay={60}>
@@ -45,11 +47,18 @@ export default function HeroSection() {
           </Reveal>
 
           <Reveal className={styles.ctas} delay={300}>
-            <a href="#projects" className={styles.btnPrimary}>
-              View Projects <FiArrowUpRight aria-hidden="true" />
+            <a href="#contact" className={styles.btnPrimary}>
+              {content.hero.ctaHire} <FiSend aria-hidden="true" />
             </a>
-            <a href="#contact" className={styles.btnGhost}>
-              Get in touch
+            <a
+              href={content.hero.resumeHref}
+              download
+              className={styles.btnSecondary}
+            >
+              {content.hero.ctaResume} <FiDownload aria-hidden="true" />
+            </a>
+            <a href="#projects" className={styles.btnGhost}>
+              {content.hero.ctaProjects} <FiArrowUpRight aria-hidden="true" />
             </a>
           </Reveal>
 
@@ -65,7 +74,7 @@ export default function HeroSection() {
 
         {/* ── Portrait column ── */}
         <Reveal className={styles.media} delay={150}>
-          <div className={styles.photoFrame}>
+          <Tilt3D className={styles.photoFrame} max={6}>
             <Image
               src="/assets/hero.jpeg"
               alt={`Portrait of ${profile.name.full}`}
@@ -75,7 +84,8 @@ export default function HeroSection() {
               sizes="(min-width: 980px) 42vw, 90vw"
               className={styles.photo}
             />
-          </div>
+            <span className={styles.photoGlow} aria-hidden="true" />
+          </Tilt3D>
 
           <div className={styles.locationCard}>
             <span className={styles.locationLabel}>Based in</span>
