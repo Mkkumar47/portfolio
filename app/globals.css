@@ -27,6 +27,10 @@
   --accent-soft:    rgba(96, 165, 250, 0.12);  /* tinted surface */
   --accent-on-dark: #60a5fa;
   --accent-glow:    rgba(59, 130, 246, 0.35);
+  --accent-2:       #a78bfa;  /* violet — gradient partner */
+  --accent-3:       #22d3ee;  /* cyan — small highlights */
+  --grad-accent:    linear-gradient(135deg, #3b82f6, #8b5cf6);
+  --grad-accent-hover: linear-gradient(135deg, #2563eb, #7c3aed);
 
   /* ── Semantic surfaces / text ───────────────────────────── */
   --bg:            var(--ink-900);
@@ -201,9 +205,19 @@ main { position: relative; z-index: 1; }
 .eyebrow::before {
   content: "";
   width: 1.75rem;
-  height: 1px;
-  background: var(--accent);
+  height: 2px;
+  border-radius: 2px;
+  background: var(--grad-accent);
 }
+
+/* Section headings get a subtle white→blue gradient sweep */
+.section h2 {
+  background: linear-gradient(120deg, var(--ink-50) 45%, var(--accent) 110%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+.section h2 span { -webkit-text-fill-color: currentColor; }
 
 /* ── Glass card primitive ───────────────────────────────── */
 .glass {
@@ -218,6 +232,7 @@ main { position: relative; z-index: 1; }
    3D TILT (used via components/ui/Tilt3D.jsx)
    ============================================================ */
 [data-tilt] {
+  position: relative;
   transform-style: preserve-3d;
   transform:
     perspective(900px)
@@ -233,6 +248,27 @@ main { position: relative; z-index: 1; }
 [data-tilt] [data-tilt-pop] {
   transform: translateZ(28px);
 }
+
+/* Cursor-tracked spotlight sheen (vars set by Tilt3D) */
+[data-tilt]::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  border-radius: inherit;
+  pointer-events: none;
+  background: radial-gradient(
+    240px circle at var(--spot-x, 50%) var(--spot-y, 50%),
+    rgba(96, 165, 250, 0.16),
+    transparent 65%
+  );
+  opacity: 0;
+  transition: opacity 0.35s var(--ease);
+}
+[data-tilt]:hover::after { opacity: 1; }
+
+/* Utility: tilt wrapper that must fill its grid/list cell */
+.tilt-fill { height: 100%; }
 
 /* ============================================================
    KEYFRAMES (shared motion vocabulary)
@@ -253,6 +289,19 @@ main { position: relative; z-index: 1; }
   from { transform: rotate(0deg); }
   to   { transform: rotate(360deg); }
 }
+@keyframes orbDrift {
+  0%, 100% { transform: translate3d(0, 0, 0) scale(1); }
+  33%      { transform: translate3d(4%, -6%, 0) scale(1.08); }
+  66%      { transform: translate3d(-5%, 4%, 0) scale(0.94); }
+}
+@keyframes ringSpin {
+  from { transform: rotateX(64deg) rotateZ(0deg); }
+  to   { transform: rotateX(64deg) rotateZ(360deg); }
+}
+@keyframes marqueeX {
+  from { transform: translateX(0); }
+  to   { transform: translateX(-50%); }
+}
 
 /* ============================================================
    SCROLL-REVEAL ANIMATIONS (progressive enhancement)
@@ -260,16 +309,21 @@ main { position: relative; z-index: 1; }
    ============================================================ */
 [data-reveal] {
   opacity: 0;
-  transform: translateY(24px);
+  /* 3D entrance: sections swing up from a slight backward lean, defocused */
+  transform: perspective(1000px) rotateX(12deg) translateY(40px) scale(0.97);
+  transform-origin: 50% 100%;
+  filter: blur(7px);
   transition:
     opacity 0.7s var(--ease),
-    transform 0.7s var(--ease);
+    transform 0.9s var(--ease),
+    filter 0.7s var(--ease);
   transition-delay: var(--reveal-delay, 0ms);
-  will-change: opacity, transform;
+  will-change: opacity, transform, filter;
 }
 [data-reveal="in"] {
   opacity: 1;
   transform: none;
+  filter: none;
 }
 
 /* ============================================================
@@ -286,8 +340,12 @@ main { position: relative; z-index: 1; }
   [data-reveal] {
     opacity: 1 !important;
     transform: none !important;
+    filter: none !important;
   }
   [data-tilt] {
     transform: none !important;
+  }
+  [data-tilt]::after {
+    display: none !important;
   }
 }

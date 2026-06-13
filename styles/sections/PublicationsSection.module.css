@@ -157,6 +157,53 @@
   perspective: 1200px;
 }
 
+/* ── "Show more" certifications (native <details>) ─────── */
+.certMore {
+  margin-top: 0.9rem;
+  /* column-reverse keeps the toggle button below the expanded cards */
+  display: flex;
+  flex-direction: column-reverse;
+  gap: 0.9rem;
+}
+
+.certMoreBtn {
+  list-style: none;
+  align-self: center;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.7rem 1.5rem;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border-strong);
+  background: var(--glass-bg);
+  backdrop-filter: blur(var(--glass-blur));
+  font-size: var(--fs-small);
+  font-weight: 600;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: color 0.2s var(--ease), border-color 0.2s var(--ease), transform 0.2s var(--ease);
+}
+.certMoreBtn::-webkit-details-marker { display: none; }
+.certMoreBtn::after {
+  content: '▾';
+  font-size: 0.8em;
+  transition: transform 0.25s var(--ease);
+}
+.certMoreBtn:hover {
+  color: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-2px);
+}
+.certMoreBtn:focus-visible {
+  outline: 3px solid var(--accent);
+  outline-offset: 3px;
+}
+
+.hideLabel { display: none; }
+.certMore[open] .showLabel { display: none; }
+.certMore[open] .hideLabel { display: inline; }
+.certMore[open] .certMoreBtn::after { transform: rotate(180deg); }
+
 .certCard {
   display: flex;
   flex-direction: column;

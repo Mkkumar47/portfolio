@@ -92,12 +92,12 @@
 }
 
 .talkBtn {
-  background: var(--accent-strong);
+  background: var(--grad-accent);
   color: #fff;
   box-shadow: var(--shadow-glow);
 }
 .talkBtn:hover {
-  background: var(--accent-hover);
+  background: var(--grad-accent-hover);
   transform: translateY(-3px);
   box-shadow: 0 0 36px var(--accent-glow);
 }
@@ -172,22 +172,20 @@ a.detailRow:hover {
 
 /* ── Big name watermark ────────────────────────────────── */
 .bigName {
+  display: block;
+  width: 100%;
+  height: auto;
   margin-top: clamp(3rem, 8vw, 5rem);
-  font-size: clamp(2.2rem, 8.5vw, 7rem);
+  user-select: none;
+  pointer-events: none;
+}
+
+.bigNameText {
+  font-family: inherit;
+  font-size: 96px; /* SVG viewBox units — scales with container width */
   font-weight: 800;
   letter-spacing: -0.03em;
-  line-height: 1;
-  text-align: center;
-  white-space: nowrap;
-  background: linear-gradient(
-    to bottom,
-    rgba(255, 255, 255, 0.12),
-    rgba(255, 255, 255, 0.015)
-  );
-  -webkit-background-clip: text;
-  background-clip: text;
-  -webkit-text-fill-color: transparent;
-  user-select: none;
+  fill: url(#bigNameFade);
 }
 
 /* ── Bottom bar ────────────────────────────────────────── */
@@ -225,6 +223,12 @@ a.detailRow:hover {
 @media (max-width: 899px) {
   .top {
     grid-template-columns: 1fr;
+  }
+  /* Keep the bottom bar tidy when it wraps on narrow screens */
+  .bottom {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
   }
 }
 

@@ -41,8 +41,13 @@
 }
 
 /* ── Brand text ── */
+/* Anchored to the bottom of the screen so it never overlaps the video subject.
+   Bottom offset clears the controls row + progress bar. */
 .content {
-  position: relative;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: clamp(5.5rem, 14vh, 8rem);
   z-index: 1;
   text-align: center;
   padding: 0 1.5rem;
@@ -58,7 +63,8 @@
   color: rgba(255, 255, 255, 0.7);
 }
 .name {
-  font-size: clamp(2.25rem, 8vw, 5rem);
+  /* Slightly smaller than before — sized as a lower-third title */
+  font-size: clamp(1.9rem, 6vw, 3.75rem);
   font-weight: 800;
   letter-spacing: -0.02em;
   line-height: 1.02;
